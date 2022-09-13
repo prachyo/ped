@@ -97,7 +97,7 @@ impl Editor {
         self.cursor_position = Position { x, y }
     }
     fn draw_welcome_message(&self) {
-        let mut welcome_message = format!("Hecto editor -- version {}", VERSION);
+        let mut welcome_message = format!("toy-editor -- version {}", VERSION);
         let width = self.terminal.size().width as usize;
         let len = welcome_message.len();
         let padding = width.saturating_sub(len) / 2;
@@ -118,7 +118,7 @@ impl Editor {
             Terminal::clear_current_line();
             if let Some(row) = self.document.row(terminal_row as usize) {
                 self.draw_row(row);
-            } else if terminal_row == height / 3 {
+            } else if self.document.is_empty() && terminal_row == height / 3 {
                 self.draw_welcome_message();
             } else {
                 println!("~\r");
